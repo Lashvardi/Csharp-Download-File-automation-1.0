@@ -1,68 +1,5 @@
-﻿//using System;
-//using System.Net;
-//using System.Threading;
-//using System.Web;
-//namespace ConsoleApp
-//{
-//    class Program
-//    {
-//        static void Main(string[] args)
-//        {
-//            string url = "https://nodejs.org/dist/v18.14.0/node-v18.14.0-x64.msi";
-//            string directory = "C:/Users/HP/Desktop/c#_testtt";
-
-//            Uri uri = new Uri(url);
-//            string filename = System.IO.Path.GetFileName(uri.LocalPath);
-
-//            using (var client = new WebClient())
-//            {
-//                client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(ProgressChanged);
-//                client.DownloadFileCompleted += new System.ComponentModel.AsyncCompletedEventHandler(DownloadCompleted);
-//                client.DownloadFileAsync(new Uri(url), directory + "\\" + filename);
-//                Console.WriteLine("Downloading...");
-
-//                while (client.IsBusy)
-//                {
-//                    Thread.Sleep(100);
-//                }
-//            }
-//        }
-
-//        private static object _lock = new object();
-//        private static void ProgressChanged(object sender, DownloadProgressChangedEventArgs e)
-//        {
-//            lock (_lock)
-//            {
-//                Console.Write("\r{0}% complete.", e.ProgressPercentage);
-//                Console.Write("[");
-//                int progress = e.ProgressPercentage / 2;
-//                for (int i = 0; i < progress; i++)
-//                {
-//                    Console.ForegroundColor= ConsoleColor.Blue;
-//                    Console.Write("#");
-//                    Console.ForegroundColor = ConsoleColor.White;
-
-//                }
-//                for (int i = 0; i < 50 - progress; i++)
-//                {
-//                    Console.Write(" ");
-//                }
-//                Console.Write("]");
-//            }
-//        }
-
-//        private static void DownloadCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
-//        {
-//            Console.ForegroundColor= ConsoleColor.Green;
-//            Console.WriteLine("\nDownload completed!");
-//            Console.WriteLine();
-//        }
-//    }
-//}
-
-using System;
-
-            int selectedOption = 1;
+﻿using Installer;
+int selectedOption = 1;
 
 while (true)
 {
@@ -71,34 +8,34 @@ while (true)
     if (selectedOption == 1)
     {
         Console.ForegroundColor = ConsoleColor.Green;
-        Console.WriteLine("Option 1");
+        Console.WriteLine("Node.JS");
     }
     else
     {
         Console.ForegroundColor = ConsoleColor.Gray;
-        Console.WriteLine("Option 1");
+        Console.WriteLine("Node.JS");
     }
 
     if (selectedOption == 2)
     {
         Console.ForegroundColor = ConsoleColor.Green;
-        Console.WriteLine("Option 2");
+        Console.WriteLine("Visual Studio Code");
     }
     else
     {
         Console.ForegroundColor = ConsoleColor.Gray;
-        Console.WriteLine("Option 2");
+        Console.WriteLine("Visual Studio Code");
     }
 
     if (selectedOption == 3)
     {
         Console.ForegroundColor = ConsoleColor.Green;
-        Console.WriteLine("Option 3");
+        Console.WriteLine("Microsoft Visual Studio");
     }
     else
     {
         Console.ForegroundColor = ConsoleColor.Gray;
-        Console.WriteLine("Option 3");
+        Console.WriteLine("Microsoft Visual Studio");
     }
 
     Console.ForegroundColor = ConsoleColor.Gray;
@@ -117,10 +54,38 @@ while (true)
             selectedOption++;
         }
     }
-    else if (pressedKey.Key == ConsoleKey.Enter)
+    if(selectedOption == 1)
     {
-        Console.WriteLine("\nYou selected Option " + selectedOption);
-        Console.ReadKey();
-        break;
+        var Option = "Node.js";
+
+         if (pressedKey.Key == ConsoleKey.Enter)
+        {
+            Downloader.Download();
+            Console.WriteLine($"\n {Option} Has Been Successfuly Installed ");
+            break;
+        }
+    }
+
+    if (selectedOption == 2)
+    {
+        string? gela = "Visual Studio Code";
+        if (pressedKey.Key == ConsoleKey.Enter)
+        {
+            Console.WriteLine("\nYou selected Option " + gela);
+            Console.ReadKey();
+            break;
+        }
+    }
+
+    if (selectedOption == 3)
+    {
+        string? gela = "Microsoft Visual Studio";
+
+        if (pressedKey.Key == ConsoleKey.Enter)
+        {
+            Console.WriteLine("\nYou selected Option " + gela);
+            Console.ReadKey();
+            break;
+        }
     }
 }

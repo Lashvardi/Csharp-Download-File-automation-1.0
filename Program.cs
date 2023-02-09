@@ -39,12 +39,11 @@ while (true)
     }
 }
 
-int Press(ConsoleKeyInfo pressedKey, ref int selectedOption)
+void Press(ConsoleKeyInfo pressedKey, ref int selectedOption)
 {
     if (pressedKey.Key == ConsoleKey.UpArrow)
         selectedOption--;
     else if (pressedKey.Key == ConsoleKey.DownArrow)
         selectedOption++;
     selectedOption = selectedOption < 1 ? 3 : selectedOption > 3 ? 1 : selectedOption;
-    return selectedOption;
 }

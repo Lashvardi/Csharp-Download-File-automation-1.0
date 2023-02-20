@@ -8,7 +8,7 @@ namespace Installer
 {
     public static class Downloader
     {
-        public static void Download()
+        public static void DownloadNode()
         {
             string url = "https://nodejs.org/dist/v18.14.0/node-v18.14.0-x64.msi";
             string folderName = "Automation";
@@ -33,7 +33,37 @@ namespace Installer
 
                 while (client.IsBusy)
                 {
-                    Thread.Sleep(30);
+                    Thread.Sleep(100);
+                }
+            }
+        }
+
+        public static void DownloadVsCode()
+        {
+            string url = "https://code.visualstudio.com/sha/download?build=stable&os=win32-x64-user";
+            string folderName = "Automation";
+            string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+            string directory = Path.Combine(desktopPath, folderName);
+
+            // create the directory if it doesn't exist
+            if (!Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
+
+            Uri uri = new Uri(url);
+            string filename = "VisualStudioCodeInstaller.exe";
+
+            using (var client = new WebClient())
+            {
+                client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(ProgressChanged);
+                client.DownloadFileCompleted += new System.ComponentModel.AsyncCompletedEventHandler(DownloadCompleted);
+                client.DownloadFileAsync(new Uri(url), Path.Combine(directory, filename));
+                Console.WriteLine("Downloading...");
+
+                while (client.IsBusy)
+                {
+                    Thread.Sleep(100);
                 }
             }
         }

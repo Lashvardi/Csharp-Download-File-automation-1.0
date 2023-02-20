@@ -25,10 +25,11 @@ while (true)
         {
             case 1:
                 option = "Node.js";
-                Downloader.Download();
+                Downloader.DownloadNode();
                 break;
             case 2:
                 option = "Visual Studio Code";
+                Downloader.DownloadVsCode();
                 break;
             case 3:
                 option = "\"Microsoft Visual Studio\";";

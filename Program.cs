@@ -1,6 +1,12 @@
 ﻿using Installer;
 int selectedOption = 1;
-string option="";
+string option = "";
+List<string> urls = new List<string>()
+    {
+        "https://nodejs.org/dist/v18.14.0/node-v18.14.0-x64.msi",
+        "https://code.visualstudio.com/sha/download?build=stable&os=win32-x64-user",
+        "https://aka.ms/vs/17/release/vs_community.exe"
+    };
 
 while (true)
 {
@@ -25,15 +31,15 @@ while (true)
         {
             case 1:
                 option = "Node.js";
-                Downloader.DownloadNode();
+                Downloader.DownloadNode(urls.ElementAt(0), "node-v18.14.0-x64.msi");
                 break;
             case 2:
                 option = "Visual Studio Code";
-                Downloader.DownloadVsCode();
+                Downloader.DownloadNode(urls.ElementAt(1), "VisualStudioCodeInstaller.exe");
                 break;
             case 3:
                 option = "\"Microsoft Visual Studio\";";
-                Downloader.DownloadVs();
+                Downloader.DownloadNode(urls.ElementAt(2), "VisualStudioInstaller.exe");
                 break;
         }
         Console.WriteLine($"\n {option} Has Been Successfuly Installed ");

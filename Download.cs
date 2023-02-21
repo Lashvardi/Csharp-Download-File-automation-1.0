@@ -1,132 +1,60 @@
-﻿using System;
-using System.Net;
-using System.Threading;
-using System.Web;
-using System.IO;
+﻿using System.Net;
+using static System.Net.WebRequestMethods;
+namespace Installer;
 
-namespace Installer
+public static class Downloader
 {
-    public static class Downloader
+    public static void DownloadNode(string url, string filename)
     {
-        public static void DownloadNode()
+        string folderName = "Automation";
+        string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+        string directory = Path.Combine(desktopPath, folderName);
+        if (!Directory.Exists(directory))
         {
-            string url = "https://nodejs.org/dist/v18.14.0/node-v18.14.0-x64.msi";
-            string folderName = "Automation";
-            string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
-            string directory = Path.Combine(desktopPath, folderName);
+            Directory.CreateDirectory(directory);
+        }
+        Uri uri = new Uri(url);
+        using (var client = new WebClient())
+        {
+            client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(ProgressChanged);
+            client.DownloadFileCompleted += new System.ComponentModel.AsyncCompletedEventHandler(DownloadCompleted);
+            client.DownloadFileAsync(new Uri(url), Path.Combine(directory, filename));
+            Console.WriteLine("Downloading...");
 
-            // create the directory if it doesn't exist
-            if (!Directory.Exists(directory))
+            while (client.IsBusy)
             {
-                Directory.CreateDirectory(directory);
-            }
-
-            Uri uri = new Uri(url);
-            string filename = System.IO.Path.GetFileName(uri.LocalPath);
-
-            using (var client = new WebClient())
-            {
-                client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(ProgressChanged);
-                client.DownloadFileCompleted += new System.ComponentModel.AsyncCompletedEventHandler(DownloadCompleted);
-                client.DownloadFileAsync(new Uri(url), Path.Combine(directory, filename));
-                Console.WriteLine("Downloading...");
-
-                while (client.IsBusy)
-                {
-                    Thread.Sleep(200);
-                }
+                Thread.Sleep(200);
             }
         }
+    }
 
-        public static void DownloadVsCode()
+    public static object _lock = new object();
+    public static void ProgressChanged(object sender, DownloadProgressChangedEventArgs e)
+    {
+        lock (_lock)
         {
-            string url = "https://code.visualstudio.com/sha/download?build=stable&os=win32-x64-user";
-            string folderName = "Automation";
-            string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
-            string directory = Path.Combine(desktopPath, folderName);
-
-            // create the directory if it doesn't exist
-            if (!Directory.Exists(directory))
+            Console.Write("\r{0}% complete.", e.ProgressPercentage);
+            Console.Write("[");
+            int progress = e.ProgressPercentage / 2;
+            for (int i = 0; i < progress; i++)
             {
-                Directory.CreateDirectory(directory);
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.Write("#");
+                Console.ForegroundColor = ConsoleColor.White;
+
             }
-
-            Uri uri = new Uri(url);
-            string filename = "VisualStudioCodeInstaller.exe";
-
-            using (var client = new WebClient())
+            for (int i = 0; i < 50 - progress; i++)
             {
-                client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(ProgressChanged);
-                client.DownloadFileCompleted += new System.ComponentModel.AsyncCompletedEventHandler(DownloadCompleted);
-                client.DownloadFileAsync(new Uri(url), Path.Combine(directory, filename));
-                Console.WriteLine("Downloading...");
-
-                while (client.IsBusy)
-                {
-                    Thread.Sleep(200);
-                }
+                Console.Write(" ");
             }
+            Console.Write("]");
         }
+    }
 
-
-        public static void DownloadVs()
-        {
-            string url = "";
-            string folderName = "Automation";
-            string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
-            string directory = Path.Combine(desktopPath, folderName);
-
-            // create the directory if it doesn't exist
-            if (!Directory.Exists(directory))
-            {
-                Directory.CreateDirectory(directory);
-            }
-
-            Uri uri = new Uri(url);
-            string filename = "VisualStudioInstaller.exe";
-
-            using (var client = new WebClient())
-            {
-                client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(ProgressChanged);
-                client.DownloadFileCompleted += new System.ComponentModel.AsyncCompletedEventHandler(DownloadCompleted);
-                client.DownloadFileAsync(new Uri(url), Path.Combine(directory, filename));
-                Console.WriteLine("Downloading...");
-
-                while (client.IsBusy)
-                {
-                    Thread.Sleep(200);
-                }
-            }
-        }
-
-        public static object _lock = new object();
-        public static void ProgressChanged(object sender, DownloadProgressChangedEventArgs e)
-        {
-            lock (_lock)
-            {
-                Console.Write("\r{0}% complete.", e.ProgressPercentage);
-                Console.Write("[");
-                int progress = e.ProgressPercentage / 2;
-                for (int i = 0; i < progress; i++)
-                {
-                    Console.ForegroundColor = ConsoleColor.Blue;
-                    Console.Write("#");
-                    Console.ForegroundColor = ConsoleColor.White;
-
-                }
-                for (int i = 0; i < 50 - progress; i++)
-                {
-                    Console.Write(" ");
-                }
-                Console.Write("]");
-            }
-        }
-
-        public static void DownloadCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
-        {
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("\nDownload completed!");
-            Console.WriteLine();
-        }
+    public static void DownloadCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
+    {
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine("\nDownload completed!");
+        Console.WriteLine();
     }
 }

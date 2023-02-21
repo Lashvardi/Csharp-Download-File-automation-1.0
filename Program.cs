@@ -43,8 +43,11 @@ while (true)
                 Downloader.DownloadNode(urls.ElementAt(2), "VisualStudioInstaller.exe");
                 break;
         }
+        Console.WriteLine();
+        Console.ForegroundColor = ConsoleColor.Green;
         Console.WriteLine($"\n {option} Has Been Successfuly Installed ");
         Console.ReadKey();
+        Console.ForegroundColor = ConsoleColor.White;
     }
 }
 

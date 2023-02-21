@@ -6,7 +6,7 @@ public static class Downloader
 {
     public static void DownloadNode(string url, string filename)
     {
-        string folderName = "Automation";
+        string folderName = "DownloadEasy";
         string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
         string directory = Path.Combine(desktopPath, folderName);
         if (!Directory.Exists(directory))
@@ -23,7 +23,7 @@ public static class Downloader
 
             while (client.IsBusy)
             {
-                Thread.Sleep(200);
+                Thread.Sleep(3000);
             }
         }
     }

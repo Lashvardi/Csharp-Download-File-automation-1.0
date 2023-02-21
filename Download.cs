@@ -33,7 +33,7 @@ namespace Installer
 
                 while (client.IsBusy)
                 {
-                    Thread.Sleep(100);
+                    Thread.Sleep(200);
                 }
             }
         }
@@ -63,7 +63,38 @@ namespace Installer
 
                 while (client.IsBusy)
                 {
-                    Thread.Sleep(100);
+                    Thread.Sleep(200);
+                }
+            }
+        }
+
+
+        public static void DownloadVs()
+        {
+            string url = "";
+            string folderName = "Automation";
+            string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+            string directory = Path.Combine(desktopPath, folderName);
+
+            // create the directory if it doesn't exist
+            if (!Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
+
+            Uri uri = new Uri(url);
+            string filename = "VisualStudioInstaller.exe";
+
+            using (var client = new WebClient())
+            {
+                client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(ProgressChanged);
+                client.DownloadFileCompleted += new System.ComponentModel.AsyncCompletedEventHandler(DownloadCompleted);
+                client.DownloadFileAsync(new Uri(url), Path.Combine(directory, filename));
+                Console.WriteLine("Downloading...");
+
+                while (client.IsBusy)
+                {
+                    Thread.Sleep(200);
                 }
             }
         }

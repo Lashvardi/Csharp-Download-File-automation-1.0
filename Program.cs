@@ -33,6 +33,7 @@ while (true)
                 break;
             case 3:
                 option = "\"Microsoft Visual Studio\";";
+                Downloader.DownloadVs();
                 break;
         }
         Console.WriteLine($"\n {option} Has Been Successfuly Installed ");

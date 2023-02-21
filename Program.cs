@@ -6,7 +6,8 @@ List<string> urls = new List<string>()
     {
         "https://nodejs.org/dist/v18.14.0/node-v18.14.0-x64.msi",
         "https://code.visualstudio.com/sha/download?build=stable&os=win32-x64-user",
-        "https://aka.ms/vs/17/release/vs_community.exe"
+        "https://aka.ms/vs/17/release/vs_community.exe",
+        "https://byrut.org/index.php?do=download&id=83260"
     };
 
 while (true)
@@ -21,6 +22,9 @@ while (true)
 
     Console.ForegroundColor = selectedOption == 3 ? ConsoleColor.Green : ConsoleColor.Gray;
     Console.WriteLine("Microsoft Visual Studio");
+
+    Console.ForegroundColor = selectedOption == 4 ? ConsoleColor.Green : ConsoleColor.Gray;
+    Console.WriteLine("Adobe Photoshop 2022 (RePack by KpoJIuK)");
 
     Console.ForegroundColor = ConsoleColor.Gray;
     ConsoleKeyInfo pressedKey = Console.ReadKey();
@@ -42,6 +46,11 @@ while (true)
                 option = "\"Microsoft Visual Studio\";";
                 Downloader.DownloadNode(urls.ElementAt(2), "VisualStudioInstaller.exe");
                 break;
+            case 4:
+                option = "\"Photoshop 2022\";";
+                Downloader.DownloadNode(urls.ElementAt(3), "Adobe-Photoshop-2022(RePack-by-KpoJIuK).torrent");
+
+                break;
         }
         Console.WriteLine();
         Console.ForegroundColor = ConsoleColor.Green;
@@ -57,5 +66,5 @@ void Press(ConsoleKeyInfo pressedKey, ref int selectedOption)
         selectedOption--;
     else if (pressedKey.Key == ConsoleKey.DownArrow)
         selectedOption++;
-    selectedOption = selectedOption < 1 ? 3 : selectedOption > 3 ? 1 : selectedOption;
+    selectedOption = selectedOption < 1 ? 4 : selectedOption > 4 ? 1 : selectedOption;
 }

@@ -66,5 +66,5 @@ void Press(ConsoleKeyInfo pressedKey, ref int selectedOption)
         selectedOption--;
     else if (pressedKey.Key == ConsoleKey.DownArrow)
         selectedOption++;
-    selectedOption = selectedOption < 1 ? 4 : selectedOption > 4 ? 1 : selectedOption;
+    selectedOption = selectedOption < 1 ? urls.Count() : selectedOption > urls.Count() ? 1 : selectedOption;
 }

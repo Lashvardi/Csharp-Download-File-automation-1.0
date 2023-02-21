@@ -7,13 +7,15 @@ List<string> urls = new List<string>()
         "https://nodejs.org/dist/v18.14.0/node-v18.14.0-x64.msi",
         "https://code.visualstudio.com/sha/download?build=stable&os=win32-x64-user",
         "https://aka.ms/vs/17/release/vs_community.exe",
-        "https://byrut.org/index.php?do=download&id=83260"
+        "https://byrut.org/index.php?do=download&id=83260",
     };
 
 while (true)
 {
     Console.Clear();
 
+    Console.WriteLine($"Number Of Apps Available {urls.Count()}");
+    Console.WriteLine();
     Console.ForegroundColor = selectedOption == 1 ? ConsoleColor.Green : ConsoleColor.Gray;
     Console.WriteLine("Node.JS");
 

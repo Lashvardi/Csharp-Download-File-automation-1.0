@@ -1,5 +1,7 @@
 ﻿using Installer;
 
+Console.Title = "DownloadEZ";
+
 int selectedOption = 1;
 string option = "";
 List<string> urls = new List<string>()
@@ -64,6 +66,7 @@ while (true)
         }
         Console.WriteLine();
         Console.ForegroundColor = ConsoleColor.Green;
+        Console.Title = "Download Completed 100%";
         Console.WriteLine($"\n {option} Has Been Successfuly Installed ");
         Console.ReadKey();
         Console.ForegroundColor = ConsoleColor.White;

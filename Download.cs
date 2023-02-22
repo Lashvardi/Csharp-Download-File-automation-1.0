@@ -34,6 +34,7 @@ public static class Downloader
         lock (_lock)
         {
             Console.Write("\r{0}% complete.", e.ProgressPercentage);
+            Console.Title = e.ProgressPercentage.ToString() + "%";
             Console.Write("[");
             int progress = e.ProgressPercentage / 2;
             for (int i = 0; i < progress; i++)
@@ -51,10 +52,12 @@ public static class Downloader
         }
     }
 
+
     public static void DownloadCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
     {
         Console.ForegroundColor = ConsoleColor.Green;
         Console.WriteLine("\nDownload completed!");
         Console.WriteLine();
+
     }
 }

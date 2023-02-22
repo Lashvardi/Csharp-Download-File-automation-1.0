@@ -8,6 +8,7 @@ List<string> urls = new List<string>()
         "https://code.visualstudio.com/sha/download?build=stable&os=win32-x64-user",
         "https://aka.ms/vs/17/release/vs_community.exe",
         "https://byrut.org/index.php?do=download&id=83260",
+        "https://www.fileour.com/download/adobe-after-effects-cc-17-5-1-free-download/?wpdmdl=9765&refresh=63f5013e09afb1677001022"
     };
 
 while (true)
@@ -26,7 +27,11 @@ while (true)
     Console.WriteLine("Microsoft Visual Studio");
 
     Console.ForegroundColor = selectedOption == 4 ? ConsoleColor.Green : ConsoleColor.Gray;
-    Console.WriteLine("Adobe Photoshop 2022 (RePack by KpoJIuK)");
+    Console.WriteLine("Adobe Photoshop 2022");
+
+    Console.ForegroundColor = selectedOption == 5 ? ConsoleColor.Green : ConsoleColor.Gray;
+    Console.WriteLine("Adobe After Effects 2021");
+
 
     Console.ForegroundColor = ConsoleColor.Gray;
     ConsoleKeyInfo pressedKey = Console.ReadKey();
@@ -51,7 +56,10 @@ while (true)
             case 4:
                 option = "\"Photoshop 2022\";";
                 Downloader.DownloadNode(urls.ElementAt(3), "Adobe-Photoshop-2022(RePack-by-KpoJIuK).torrent");
-
+                break;
+            case 5:
+                option = "\"Adobe After Effects 2021\";";
+                Downloader.DownloadNode(urls.ElementAt(4), "Adobe After Effects 2021.zip");
                 break;
         }
         Console.WriteLine();
